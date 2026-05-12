@@ -26,7 +26,7 @@ public class SimpleShippingApp extends JFrame {
 
 		inputPanel.add(new JLabel("Policy:"));
 		policyCombo = new JComboBox<>(
-				new String[] {"Flat Rate", "Weight-Based", "Distance-Based", "Carrier-Specific"});
+				new String[] { "Flat Rate", "Weight-Based", "Distance-Based", "Carrier-Specific" });
 		inputPanel.add(policyCombo);
 
 		JButton calcButton = new JButton("Calculate Cost");
@@ -52,24 +52,23 @@ public class SimpleShippingApp extends JFrame {
 					// 1. Calculate Base Cost (The "Policy" logic)
 					ShippingPolicyFactory factory = new ShippingPolicyFactory();
 					ShippingStrategy strategy = factory.getStrategy(policy);
-					cost = strategy.calculate(weight, distance);
 					// if (policy.equals("Flat Rate")) {
-					// 	cost = 20.0;
+					// cost = 20.0;
 					// } else if (policy.equals("Weight-Based")) {
-					// 	cost = weight * 5.5;
+					// cost = weight * 5.5;
 					// } else if (policy.equals("Distance-Based")) {
-					// 	cost = distance * 0.75;
+					// cost = distance * 0.75;
 					// } else if (policy.equals("Carrier-Specific")) {
-					// 	cost = (weight * 2) + (distance * 0.5) + 15;
+					// cost = (weight * 2) + (distance * 0.5) + 15;
 					// }
 
 					// 2. Add Handling Fee (The "Heavy Load" logic)
 					// Instead of a Decorator, we just use a hardcoded if-statement
 					if (weight > 20) {
-						cost += 15.0;
+						strategy = new HeavyLoadDecorator(strategy);
 						surchargeNote = " (Includes $15 Heavy Surcharge)";
 					}
-
+					cost = strategy.calculate(weight, distance);
 					resultArea.append(policy + ": $" + cost + surchargeNote + "\n");
 				} catch (NumberFormatException ex) {
 					JOptionPane.showMessageDialog(null, "Please enter valid numbers.");
