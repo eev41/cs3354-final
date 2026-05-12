@@ -1,5 +1,5 @@
 public class ShippingPolicyFactory {
-	public static ShippingStrategy createStrategy(String type) {
+	public static ShippingStrategy getStrategy(String type) {
 		if (type.equalsIgnoreCase("Flat Rate"))
 			return new FlatRateStrategy();
 		if (type.equalsIgnoreCase("Weight-based"))
