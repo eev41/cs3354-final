@@ -1,13 +1,13 @@
-package edu.txst.factory;
-
-import edu.txst.beverage.*;
-
-public class BeverageFactory {
-	public static Beverage createBeverage(String type) {
-		if (type.equalsIgnoreCase("Espresso"))
-			return new Espresso();
-		if (type.equalsIgnoreCase("House Blend"))
-			return new HouseBlend();
+public class ShippingPolicyFactory {
+	public static ShippingStrategy createStrategy(String type) {
+		if (type.equalsIgnoreCase("Flat Rate"))
+			return new FlatRateStrategy();
+		if (type.equalsIgnoreCase("Weight-based"))
+			return new WeightBasedStrategy();
+		if (type.equalsIgnoreCase("Distance-based"))
+			return new DistanceBasedStrategy();
+		if (type.equalsIgnoreCase("Carrier-Specific"))
+			return new CarrierSpecificStrategy();
 		return null;
 	}
 }
