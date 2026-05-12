@@ -50,15 +50,18 @@ public class SimpleShippingApp extends JFrame {
 					String surchargeNote = "";
 
 					// 1. Calculate Base Cost (The "Policy" logic)
-					if (policy.equals("Flat Rate")) {
-						cost = 20.0;
-					} else if (policy.equals("Weight-Based")) {
-						cost = weight * 5.5;
-					} else if (policy.equals("Distance-Based")) {
-						cost = distance * 0.75;
-					} else if (policy.equals("Carrier-Specific")) {
-						cost = (weight * 2) + (distance * 0.5) + 15;
-					}
+					ShippingPolicyFactory factory = new ShippingPolicyFactory();
+					ShippingStrategy strategy = factory.getStrategy(policy);
+					cost = strategy.calculate(weight, distance);
+					// if (policy.equals("Flat Rate")) {
+					// 	cost = 20.0;
+					// } else if (policy.equals("Weight-Based")) {
+					// 	cost = weight * 5.5;
+					// } else if (policy.equals("Distance-Based")) {
+					// 	cost = distance * 0.75;
+					// } else if (policy.equals("Carrier-Specific")) {
+					// 	cost = (weight * 2) + (distance * 0.5) + 15;
+					// }
 
 					// 2. Add Handling Fee (The "Heavy Load" logic)
 					// Instead of a Decorator, we just use a hardcoded if-statement
